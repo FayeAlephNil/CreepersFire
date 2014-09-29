@@ -1,6 +1,7 @@
 package mods.creepersfire.handler;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import mods.creepersfire.api.interfaces.ICreeper;
 import mods.creepersfire.reference.ConfigSettings;
 import mods.creepersfire.utility.LogHelper;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -17,7 +18,7 @@ public class LivingHandler
     {
         if (event.source.equals(DamageSource.onFire) || event.source.equals(DamageSource.inFire))
         {
-            if (event.entity instanceof EntityCreeper)
+            if (event.entity instanceof EntityCreeper && !(event.entity instanceof ICreeper))
             {
                 LogHelper.info("Creeper Hurt by fire");
                 EntityCreeper creeper = (EntityCreeper) event.entity;
@@ -26,6 +27,21 @@ public class LivingHandler
                 } else if (ConfigSettings.hasFuse == 0)
                 {
                     explosionForCreeper(creeper);
+                } else
+                {
+                    LogHelper.error("Wrong value for hasFuse");
+                }
+            }
+            if (event.entity instanceof ICreeper)
+            {
+                LogHelper.info("ICreeper Hurt by fire");
+                ICreeper creeper = (ICreeper) event.entity;
+                if (ConfigSettings.hasFuse == 1)
+                {
+                    creeper.doFuse();
+                } else if (ConfigSettings.hasFuse == 0)
+                {
+                    creeper.doExplode();
                 } else
                 {
                     LogHelper.error("Wrong value for hasFuse");
