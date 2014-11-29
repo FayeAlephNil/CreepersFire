@@ -1,7 +1,7 @@
 .gradle
-Creepers&Fire.iml
-Creepers&Fire.ipr
-Creepers&Fire.iws
+*.iml
+*.ipr
+*.iws
 eclipse
 out
 gradlew
