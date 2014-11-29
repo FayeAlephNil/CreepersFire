@@ -35,7 +35,10 @@ public class ConfigurationHandler
 
     private static void loadConfiguration()
     {
+
         ConfigSettings.hasFuse = configuration.getInt("hasFuse", Configuration.CATEGORY_GENERAL, ConfigSettings.defaultHasFuse, 0, 1, "Set 1 for has fuse and 0 if not");
+        ConfigSettings.fuseTime = configuration.getInt("fuseTime", Configuration.CATEGORY_GENERAL, ConfigSettings.defaultFuseTime, 0 , 12000, "FuseTime in ticks");
+        ConfigSettings.names = configuration.getStringList("playerNames", Configuration.CATEGORY_GENERAL, new String[0], "Use this to set players to explode on fire");
         if (configuration.hasChanged())
         {
             configuration.save();
